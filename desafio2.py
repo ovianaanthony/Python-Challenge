@@ -14,10 +14,10 @@ relatorio = {
 
 def depositar(valor, /):
     if(valor>0):
-        conta['saldo']+=valor
+        controle['saldo']+=valor
         print("Depósito realizado!")
         relatorio['extract'].append(f'Depósito:  R${valor:.2f}.')
-        conta['acoes']+=1
+        controle['acoes']+=1
         menu()
     else:
         print("Valor negativo não reconhecido.")
@@ -28,18 +28,18 @@ def sacar(*, quantidade):
     if(quantidade>500):
         print("Excede o limite de Saque permitido.")
         menu()
-    elif(quantidade>conta['saldo']):
+    elif(quantidade>controle['saldo']):
         print("Saque indisponível")
         menu()
     else:
-        conta['limit']+=1
-        if(conta['limit']==4):
+        controle['limit']+=1
+        if(controle['limit']==4):
             print("Limite de saques diários alcançado.")
             menu()
         else:
-            conta['saldo'] -= quantidade
+            controle['saldo'] -= quantidade
             relatorio['extract'].append(f'Saque:  R${quantidade:.2f}.')
-            conta['acoes']+=1
+            controle['acoes']+=1
             print("Saque realizado com sucesso!")
             menu()
 
@@ -47,11 +47,11 @@ def tirar_extrato():
     a = list(relatorio.values())
 
     index = 0  
-    while index < conta['acoes']:
+    while index < controle['acoes']:
         print(a[0][index])
         index+=1
 
-    print(f'\nO saldo da sua conta é R${conta['saldo']:.2f}.\n')
+    print(f'\nO saldo da sua conta é R${controle['saldo']:.2f}.\n')
     menu()
 
 def criar_usuario(usuarios):
